@@ -1,8 +1,8 @@
 package com.excusas.test;
 
+import com.excusas.empleado.Empleado;
 import com.excusas.empleado.encargado.*;
 import com.excusas.estrategia.Normal;
-import com.excusas.excusa.Excusa;
 import com.excusas.excusa.IExcusa;
 import com.excusas.excusa.motivo.*;
 import com.excusas.servicio.EmailSenderImpl;
@@ -13,32 +13,35 @@ public class CadenaDePrueba {
         // EmailSender compartido
         EmailSenderImpl emailSender = new EmailSenderImpl();
 
-        // encargados
+        // Encargados
         IEncargado rechazador = new Rechazador(emailSender);
         CEO ceo = new CEO("Romina", "laRomi@mail.com", 4, new Normal(), emailSender);
         GerenteRRHH gerente = new GerenteRRHH("Roberto", "robertito05@mail.com", 3, new Normal(), emailSender);
         SupervisorArea supervisor = new SupervisorArea("Luis", "luisito@mail.com", 2, new Normal(), emailSender);
         Recepcionista recepcionista = new Recepcionista("Jeremias", "jeremiadiaz@mail.com", 1, new Normal(), emailSender);
 
-        // cdena de encargados
+        // Cadena de encargados
         recepcionista.setSiguiente(supervisor);
         supervisor.setSiguiente(gerente);
         gerente.setSiguiente(ceo);
         ceo.setSiguiente(rechazador);
 
-        // 1. excusa trivial (la procesa el recepcionista)
+        // Empleado que genera excusas
+        Empleado empleado = new Empleado("Lucía", "lucia@mail.com", 102);
+
+        // 1. Excusa trivial (la procesa el recepcionista)
         System.out.println("\n--- Probando excusa trivial ---");
-        Excusa excusa1 = new Excusa(new Trivial(), recepcionista);
+        IExcusa excusa1 = empleado.generarExcusa(new Trivial());
         recepcionista.manejarExcusa(excusa1);
 
-        // 2. excusa moderada (corte de luz)
+        // 2. Excusa moderada (corte de luz)
         System.out.println("\n--- Probando excusa moderada (Corte de Luz) ---");
-        Excusa excusa2 = new Excusa(new CorteLuz(), recepcionista);
+        IExcusa excusa2 = empleado.generarExcusa(new CorteLuz());
         recepcionista.manejarExcusa(excusa2);
 
-        // 3. excusa inverosímil (increíble)
+        // 3. Excusa inverosímil (increíble)
         System.out.println("\n--- Probando excusa inverosímil ---");
-        Excusa excusa3 = new Excusa(new Inverosimil(), recepcionista);
+        IExcusa excusa3 = empleado.generarExcusa(new Inverosimil());
         recepcionista.manejarExcusa(excusa3);
     }
 }

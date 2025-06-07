@@ -4,6 +4,7 @@ import com.excusas.empleado.Empleado;
 import com.excusas.estrategia.IModoResolucion;
 import com.excusas.excusa.IExcusa;
 import com.excusas.servicio.IEmailSender;
+import com.excusas.excepciones.ExcusaNoManejadaException;
 
 public abstract class EncargadoBase extends Empleado implements IEncargado {
 
@@ -32,6 +33,21 @@ public abstract class EncargadoBase extends Empleado implements IEncargado {
 
     @Override
     public void manejarExcusa(IExcusa excusa) {
-        modo.resolver(excusa, this, siguiente);
+        if (modo != null) {
+            modo.resolver(excusa, this, getSiguiente());
+        } else {
+            manejarPorDefecto(excusa);
+        }
     }
+
+    public void manejarPorDefecto(IExcusa excusa) {
+        if (puedeManejar(excusa)) {
+            procesar(excusa);
+        } else if (siguiente != null) {
+            siguiente.manejarExcusa(excusa);
+        } else {
+            throw new ExcusaNoManejadaException("Excusa no manejada: " + excusa.getMotivo().getClass().getSimpleName());
+        }
+    }
+
 }

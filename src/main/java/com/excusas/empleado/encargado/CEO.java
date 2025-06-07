@@ -6,6 +6,7 @@ import com.excusas.estrategia.IModoResolucion;
 import com.excusas.observer.IObserver;
 import com.excusas.observer.AdministradorProntuarios;
 import com.excusas.servicio.IEmailSender;
+import com.excusas.excusa.Prontuario;
 
 public class CEO extends EncargadoBase implements IObserver {
 
@@ -32,8 +33,14 @@ public class CEO extends EncargadoBase implements IObserver {
                 "Excusa inverosímil",
                 "Aprobado por creatividad"
         );
-        AdministradorProntuarios.getInstancia().guardarProntuario(excusa);
-        AdministradorProntuarios.getInstancia().notificarObservers();
+
+        Prontuario prontuario = new Prontuario(
+                excusa.getEmpleado().getNombre(),
+                excusa.getMotivo().getClass().getSimpleName(),
+                excusa.getEmpleado().getLegajo()
+        );
+
+        AdministradorProntuarios.getInstancia().guardarProntuario(prontuario);
     }
 
     @Override

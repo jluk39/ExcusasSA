@@ -3,6 +3,7 @@ package com.excusas.empleado.encargado;
 import com.excusas.excusa.IExcusa;
 import com.excusas.estrategia.IModoResolucion;
 import com.excusas.servicio.IEmailSender;
+import com.excusas.excepciones.ExcusaNoManejadaException;
 
 public class Rechazador implements IEncargado {
 
@@ -30,5 +31,7 @@ public class Rechazador implements IEncargado {
                 "Motivo demora",
                 "Excusa rechazada: necesitamos pruebas contundentes"
         );
+        throw new ExcusaNoManejadaException("Excusa rechazada: " + excusa.getMotivo().getClass().getSimpleName());
     }
+
 }
