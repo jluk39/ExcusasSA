@@ -34,7 +34,7 @@ public abstract class EncargadoBase extends Empleado implements IEncargado {
     @Override
     public void manejarExcusa(IExcusa excusa) {
         if (modo != null) {
-            modo.resolver(excusa, this, getSiguiente());
+            modo.resolver(this, excusa);
         } else {
             manejarPorDefecto(excusa);
         }
@@ -49,5 +49,5 @@ public abstract class EncargadoBase extends Empleado implements IEncargado {
             throw new ExcusaNoManejadaException("Excusa no manejada: " + excusa.getMotivo().getClass().getSimpleName());
         }
     }
-
 }
+

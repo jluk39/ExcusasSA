@@ -1,7 +1,6 @@
 package com.excusas.observer;
 
 import com.excusas.excusa.Prontuario;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ public class AdministradorProntuarios implements IObservable {
     private static AdministradorProntuarios instancia;
     private final List<IObserver> observers = new ArrayList<>();
     private final List<Prontuario> prontuarios = new ArrayList<>();
-
     private Prontuario ultimoProntuario;
 
     private AdministradorProntuarios() {}
@@ -45,7 +43,7 @@ public class AdministradorProntuarios implements IObservable {
     @Override
     public void notificarObservers() {
         for (IObserver observer : observers) {
-            observer.actualizar();
+            observer.actualizar(ultimoProntuario);
         }
     }
 }

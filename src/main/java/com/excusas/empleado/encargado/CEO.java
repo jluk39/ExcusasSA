@@ -34,17 +34,13 @@ public class CEO extends EncargadoBase implements IObserver {
                 "Aprobado por creatividad"
         );
 
-        Prontuario prontuario = new Prontuario(
-                excusa.getEmpleado().getNombre(),
-                excusa.getMotivo().getClass().getSimpleName(),
-                excusa.getEmpleado().getLegajo()
-        );
-
+        Prontuario prontuario = new Prontuario(excusa);
         AdministradorProntuarios.getInstancia().guardarProntuario(prontuario);
     }
 
     @Override
-    public void actualizar() {
-        System.out.println("CEO recibió notificación del Administrador de Prontuarios.");
+    public void actualizar(Prontuario prontuario) {
+        System.out.println("CEO recibió una nueva excusa registrada:");
+        System.out.println(prontuario);
     }
 }

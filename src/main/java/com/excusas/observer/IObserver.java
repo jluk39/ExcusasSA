@@ -1,5 +1,7 @@
 package com.excusas.observer;
 
+import com.excusas.excusa.Prontuario;
+
 public interface IObserver {
-    void actualizar();
+    void actualizar(Prontuario prontuario);
 }

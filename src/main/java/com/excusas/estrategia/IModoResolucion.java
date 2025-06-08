@@ -1,8 +1,8 @@
 package com.excusas.estrategia;
 
 import com.excusas.excusa.IExcusa;
-import com.excusas.empleado.encargado.IEncargado;
+import com.excusas.empleado.encargado.EncargadoBase;
 
 public interface IModoResolucion {
-    void resolver(IExcusa excusa, IEncargado actual, IEncargado siguiente);
+    void resolver(EncargadoBase encargado, IExcusa excusa);
 }
