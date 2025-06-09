@@ -74,3 +74,7 @@ Esta decisión garantiza consistencia en el almacenamiento de información y evi
 ## Diagrama de Clases
 
 ![Diagrama UML](diagramaIt3.png)
+
+## Diagrama de Casos de Uso
+
+![Diagrama UML Casos de Uso](casosDeUso.png)
